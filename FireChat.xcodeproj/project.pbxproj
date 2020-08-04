@@ -17,6 +17,10 @@
 		C4B1F08424D873D5000869DC /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08324D873D5000869DC /* LoginController.swift */; };
 		C4B1F08624D873E7000869DC /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08524D873E7000869DC /* RegistrationController.swift */; };
 		C4B1F08824D877F6000869DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08724D877F6000869DC /* Extensions.swift */; };
+		C4B1F08C24D9B8C4000869DC /* InputContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08B24D9B8C4000869DC /* InputContainerView.swift */; };
+		C4B1F08E24D9BE76000869DC /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08D24D9BE76000869DC /* CustomTextField.swift */; };
+		C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08F24D9D432000869DC /* LoginViewModel.swift */; };
+		C4B1F09224D9DDD7000869DC /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F09124D9DDD7000869DC /* RegistrationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		C4B1F08324D873D5000869DC /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		C4B1F08524D873E7000869DC /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		C4B1F08724D877F6000869DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		C4B1F08B24D9B8C4000869DC /* InputContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputContainerView.swift; sourceTree = "<group>"; };
+		C4B1F08D24D9BE76000869DC /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C4B1F08F24D9D432000869DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		C4B1F09124D9DDD7000869DC /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +116,7 @@
 		C4B1F07D24D8618C000869DC /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C4B1F09324D9DDE1000869DC /* Authentication */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -115,6 +124,8 @@
 		C4B1F07E24D8618E000869DC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4B1F08B24D9B8C4000869DC /* InputContainerView.swift */,
+				C4B1F08D24D9BE76000869DC /* CustomTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -131,6 +142,15 @@
 			children = (
 				C4B1F08324D873D5000869DC /* LoginController.swift */,
 				C4B1F08524D873E7000869DC /* RegistrationController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		C4B1F09324D9DDE1000869DC /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				C4B1F08F24D9D432000869DC /* LoginViewModel.swift */,
+				C4B1F09124D9DDD7000869DC /* RegistrationViewModel.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -207,12 +227,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B1F06B24D86118000869DC /* ViewController.swift in Sources */,
+				C4B1F09224D9DDD7000869DC /* RegistrationViewModel.swift in Sources */,
+				C4B1F08C24D9B8C4000869DC /* InputContainerView.swift in Sources */,
 				C4B1F06724D86118000869DC /* AppDelegate.swift in Sources */,
 				C4B1F08124D86204000869DC /* ConversationsController.swift in Sources */,
 				C4B1F06924D86118000869DC /* SceneDelegate.swift in Sources */,
 				C4B1F08624D873E7000869DC /* RegistrationController.swift in Sources */,
 				C4B1F08424D873D5000869DC /* LoginController.swift in Sources */,
 				C4B1F08824D877F6000869DC /* Extensions.swift in Sources */,
+				C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */,
+				C4B1F08E24D9BE76000869DC /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
