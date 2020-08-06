@@ -8,11 +8,16 @@
 
 import Foundation
 
-struct LoginViewModel {
+protocol AuthenticationProtocol {
+    var formIsValid: Bool { get }
+}
+
+struct LoginViewModel: AuthenticationProtocol {
     var email: String?
     var password: String?
 
     var formIsValid: Bool {
-        return !(email?.isEmpty ?? true) && !(password?.isEmpty ?? true)
+        return !(email?.isEmpty ?? true) &&
+               !(password?.isEmpty ?? true)
     }
 }

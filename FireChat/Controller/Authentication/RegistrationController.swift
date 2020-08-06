@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Firebase
 
 class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
-    private let viewModel = RegistrationViewModel()
+    private var viewModel = RegistrationViewModel()
+    private var profileImage: UIImage?
     
     private let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
@@ -50,6 +52,8 @@ class RegistrationController: UIViewController {
         button.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         button.setTitleColor(.white, for: .normal)
         button.setHeight(height: 50)
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(handleRegistration), for: .touchUpInside)
         return button
     }()
     
@@ -70,12 +74,54 @@ class RegistrationController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        configureNotificationObservers()
     }
     
     // MARK: - Selectors
     
-    @objc func textDidChange(sender: UITextField) {
+    @objc func handleRegistration() {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let fullname = fullnameTextField.text,
+              let username = usernameTextField.text,
+              let profileImage = profileImage else { return }
         
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        
+        let filename = NSUUID().uuidString
+        let ref = Storage.storage().reference(withPath: "/profile_image/\(filename)")
+        ref.putData(imageData, metadata: nil) { (meta, error) in
+            if let error = error {
+                print("DEBUG: Failed to upload image with error \(error.localizedDescription)")
+                return
+            }
+            
+            ref.downloadURL { (url, error) in
+                guard let profileImageUrl = url?.absoluteString else { return }
+                
+                Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+                    if let error = error {
+                        print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+                    }
+                    
+                    guard let uid = result?.user.uid else { return }
+                }
+            }
+        }
+    }
+    
+    @objc func textDidChange(sender: UITextField) {
+        if sender == emailTextField {
+            viewModel.email = sender.text
+        } else if sender == passwordTextField {
+            viewModel.password = sender.text
+        } else if sender == fullnameTextField {
+            viewModel.fullname = sender.text
+        } else {
+            viewModel.username = sender.text
+        }
+        
+        checkFormStatus()
     }
     
     @objc func handleSelectPhoto() {
@@ -89,16 +135,6 @@ class RegistrationController: UIViewController {
     }
     
     // MARK: Helpers
-    
-    func checkFormStatus() {
-        if viewModel.formIsValid {
-            signUpButton.isEnabled = true
-            signUpButton.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        } else {
-            signUpButton.isEnabled = false
-            signUpButton.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        }
-    }
     
     func configureUI() {
         configureGradientLayer()
@@ -124,7 +160,6 @@ class RegistrationController: UIViewController {
         alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor,
                                      right: view.rightAnchor, paddingLeft: 32,
                                      paddingRight: 32)
-
     }
     
     func configureNotificationObservers() {
@@ -141,6 +176,7 @@ class RegistrationController: UIViewController {
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
+        profileImage = image
         plusPhotoButton.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         plusPhotoButton.layer.borderColor = UIColor(white: 1, alpha: 0.7).cgColor
         plusPhotoButton.layer.borderWidth = 3.0
@@ -148,4 +184,18 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         
         dismiss(animated: true, completion: nil)
     }
+}
+
+extension RegistrationController: AuthenticationControllerProtocol {
+    
+    func checkFormStatus() {
+        if viewModel.formIsValid {
+            signUpButton.isEnabled = true
+            signUpButton.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
+        } else {
+            signUpButton.isEnabled = false
+            signUpButton.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        }
+    }
+
 }

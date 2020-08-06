@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol AuthenticationProtocol {
-    var formIsValid: Bool { get }
-}
-
 struct RegistrationViewModel: AuthenticationProtocol {
     var email: String?
     var password: String?
