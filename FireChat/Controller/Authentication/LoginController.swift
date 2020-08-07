@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 protocol AuthenticationControllerProtocol {
     func checkFormStatus()
@@ -72,6 +73,20 @@ class LoginController: UIViewController {
     
     // MARK: Selectors
     
+    @objc func handleLogin() {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text else { return }
+        
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if let error = error {
+                print("DEBUG: Failed to log in with error \(error.localizedDescription)")
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
     @objc func handleShowSignUp() {
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
@@ -86,10 +101,6 @@ class LoginController: UIViewController {
         }
         
         checkFormStatus()
-    }
-    
-    @objc func handleLogin() {
-        
     }
     
     // MARK: - Helpers
@@ -136,7 +147,6 @@ extension UIViewController {
 }
 
 extension LoginController: AuthenticationControllerProtocol {
-    
     func checkFormStatus() {
         if viewModel.formIsValid {
             loginButton.isEnabled = true
@@ -146,5 +156,4 @@ extension LoginController: AuthenticationControllerProtocol {
             loginButton.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         }
     }
-
 }

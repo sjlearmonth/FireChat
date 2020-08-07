@@ -13,12 +13,17 @@ struct RegistrationViewModel: AuthenticationProtocol {
     var password: String?
     var fullname: String?
     var username: String?
+    var profileImage: UIImage?
 
     var formIsValid: Bool {
-        return !(email?.isEmpty ?? true) &&
-               !(password?.isEmpty ?? true) &&
-               !(fullname?.isEmpty ?? true) &&
-               !(username?.isEmpty ?? true)
+        if let _ = profileImage {
+            return !(email?.isEmpty ?? true) &&
+                   !(password?.isEmpty ?? true) &&
+                   !(fullname?.isEmpty ?? true) &&
+                   !(username?.isEmpty ?? true)
+        } else {
+            return false
+        }
     }
 }
 
