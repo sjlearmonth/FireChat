@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 protocol AuthenticationControllerProtocol {
     func checkFormStatus()
@@ -77,16 +78,20 @@ class LoginController: UIViewController {
         guard let email = emailTextField.text,
               let password = passwordTextField.text else { return }
         
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+        showLoader(true, withText: "Logging in")
+        
+        AuthService.shared.logUserIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print("DEBUG: Failed to log in with error \(error.localizedDescription)")
+                print("DEBUG: Failed to login with email \(error.localizedDescription)")
+                self.showLoader(false)
                 return
             }
             
+            self.showLoader(false)
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+        
     @objc func handleShowSignUp() {
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
@@ -133,16 +138,6 @@ class LoginController: UIViewController {
         
         emailTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
-    }
-}
-
-extension UIViewController {
-    func configureGradientLayer() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.systemPurple.cgColor, UIColor.systemPink.cgColor]
-        gradient.locations = [0, 1]
-        view.layer.addSublayer(gradient)
-        gradient.frame = view.frame
     }
 }
 

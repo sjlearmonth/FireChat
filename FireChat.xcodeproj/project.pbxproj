@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,9 @@
 		C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F08F24D9D432000869DC /* LoginViewModel.swift */; };
 		C4B1F09224D9DDD7000869DC /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F09124D9DDD7000869DC /* RegistrationViewModel.swift */; };
 		C4B1F09524DC746A000869DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4B1F09424DC746A000869DC /* GoogleService-Info.plist */; };
+		C4B1F09724E18317000869DC /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F09624E18317000869DC /* AuthService.swift */; };
+		C4B1F09924E1A1FC000869DC /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F09824E1A1FC000869DC /* NewMessageController.swift */; };
+		C4B1F09C24E1ADEF000869DC /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B1F09B24E1ADEF000869DC /* UserCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +49,9 @@
 		C4B1F08F24D9D432000869DC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		C4B1F09124D9DDD7000869DC /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		C4B1F09424DC746A000869DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C4B1F09624E18317000869DC /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C4B1F09824E1A1FC000869DC /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		C4B1F09B24E1ADEF000869DC /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +72,6 @@
 				1F088057D0A8E6531BA7EE28 /* Pods-FireChat.debug.xcconfig */,
 				187ADB2C28284CD0D4667995 /* Pods-FireChat.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -128,6 +133,7 @@
 		C4B1F07B24D86188000869DC /* API */ = {
 			isa = PBXGroup;
 			children = (
+				C4B1F09624E18317000869DC /* AuthService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -137,6 +143,7 @@
 			children = (
 				C4B1F08224D873AB000869DC /* Authentication */,
 				C4B1F08024D86204000869DC /* ConversationsController.swift */,
+				C4B1F09824E1A1FC000869DC /* NewMessageController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -154,6 +161,7 @@
 			children = (
 				C4B1F08B24D9B8C4000869DC /* InputContainerView.swift */,
 				C4B1F08D24D9BE76000869DC /* CustomTextField.swift */,
+				C4B1F09B24E1ADEF000869DC /* UserCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -302,14 +310,17 @@
 				C4B1F06B24D86118000869DC /* ViewController.swift in Sources */,
 				C4B1F09224D9DDD7000869DC /* RegistrationViewModel.swift in Sources */,
 				C4B1F08C24D9B8C4000869DC /* InputContainerView.swift in Sources */,
+				C4B1F09724E18317000869DC /* AuthService.swift in Sources */,
 				C4B1F06724D86118000869DC /* AppDelegate.swift in Sources */,
 				C4B1F08124D86204000869DC /* ConversationsController.swift in Sources */,
+				C4B1F09C24E1ADEF000869DC /* UserCell.swift in Sources */,
 				C4B1F06924D86118000869DC /* SceneDelegate.swift in Sources */,
 				C4B1F08624D873E7000869DC /* RegistrationController.swift in Sources */,
 				C4B1F08424D873D5000869DC /* LoginController.swift in Sources */,
 				C4B1F08824D877F6000869DC /* Extensions.swift in Sources */,
 				C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */,
 				C4B1F08E24D9BE76000869DC /* CustomTextField.swift in Sources */,
+				C4B1F09924E1A1FC000869DC /* NewMessageController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
