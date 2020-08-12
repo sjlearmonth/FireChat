@@ -58,6 +58,21 @@ class RegistrationController: UIViewController {
         return button
     }()
     
+    private let cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.setHeight(height: 50)
+        button.isEnabled = true
+        button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+        
+        return button
+    }()
+
+    
     private let alreadyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Already have an account? ", attributes: [.font : UIFont.systemFont(ofSize: 16), .foregroundColor : UIColor.white])
@@ -79,6 +94,10 @@ class RegistrationController: UIViewController {
     }
     
     // MARK: - Selectors
+    
+    @objc func handleCancel() {
+        navigationController?.popViewController(animated: true)
+    }
     
     @objc func handleRegistration() {
         guard let email = emailTextField.text,
@@ -155,7 +174,8 @@ class RegistrationController: UIViewController {
                                                    passwordContainerView,
                                                    fullnameContainerView,
                                                    usernameContainerView,
-                                                   signUpButton])
+                                                   signUpButton,
+                                                   cancelButton])
         stack.axis = .vertical
         stack.spacing = 16
         

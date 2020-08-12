@@ -45,6 +45,20 @@ class LoginController: UIViewController {
         return button
     }()
 
+    private let cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Cancel", for: .normal)
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.setHeight(height: 50)
+        button.isEnabled = true
+        button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private let emailTextField = CustomTextField(placeholder: "Email")
 
     private let passwordTextField: CustomTextField = {
@@ -92,6 +106,11 @@ class LoginController: UIViewController {
         }
     }
         
+    
+    @objc func handleCancel() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc func handleShowSignUp() {
         let controller = RegistrationController()
         navigationController?.pushViewController(controller, animated: true)
@@ -123,7 +142,8 @@ class LoginController: UIViewController {
         
         let stack = UIStackView(arrangedSubviews: [emailContainerView,
                                                        passwordContainerView,
-                                                       loginButton])
+                                                       loginButton,
+                                                       cancelButton])
         stack.axis = .vertical
         stack.spacing = 16
         
