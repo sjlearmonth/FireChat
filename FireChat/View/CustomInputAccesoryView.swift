@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol CustomInputAccessoryViewDelegate: class {
+    func inputView(_ inputView: CustomInputAccessoryView, wantsToSend message: String)
+}
+
 class CustomInputAccessoryView: UIView {
     
     // MARK: - Properties
     
-    private lazy var messageInputTextView: UITextView = {
+    weak var delegate: CustomInputAccessoryViewDelegate?
+    
+    private /*lazy var*/let messageInputTextView: UITextView = {
         let textView = UITextView()
         textView.font = UIFont.systemFont(ofSize: 16)
         textView.isScrollEnabled = false
@@ -76,11 +82,19 @@ class CustomInputAccessoryView: UIView {
     // MARK: - Selectors
     
     @objc func handleSendMessage() {
-        print("DEBUG: Handle send message here.")
+        guard let messageText = messageInputTextView.text else { return }
+        delegate?.inputView(self, wantsToSend: messageText)
     }
 
     @objc func handleTextInputChange() {
         print("DEBUG: Handle text input change.")
         placeholderLabel.isHidden = !self.messageInputTextView.text.isEmpty
+    }
+    
+    // MARK: - Helpers
+    
+    func clearMessageText() {
+        messageInputTextView.text = nil
+        placeholderLabel.isHidden = false
     }
 }
