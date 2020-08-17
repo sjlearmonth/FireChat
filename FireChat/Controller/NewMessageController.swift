@@ -11,14 +11,14 @@ import UIKit
 private let reuseIdentifier = "UserCell"
 
 protocol NewMessageControllerDelegate: class {
-    func controller(_ controller: NewMessageController, wantsToStartChatWith user: User)
+    func controller(_ controller: NewMessageController, wantsToStartChatWith chatPartner: User)
 }
 
 class NewMessageController: UITableViewController {
     
     // MARK - Properties
     
-    private var users = [User]()
+    private var chatPartners = [User]()
     weak var delegate: NewMessageControllerDelegate?
     
     
@@ -27,7 +27,7 @@ class NewMessageController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        fetchUsers()
+        fetchChatPartners()
     }
     
     // MARK: - Helpers
@@ -40,11 +40,11 @@ class NewMessageController: UITableViewController {
     
     // MARK: - API
     
-    func fetchUsers() {
-        Service.fetchUsers {users in
-            self.users = users
+    func fetchChatPartners() {
+        Service.fetchChatPartners {chatPartners in
+            self.chatPartners = chatPartners
             self.tableView.reloadData()
-            print("DEBUG: Users in new message controller \(users)")
+            print("DEBUG: Users in new message controller \(chatPartners)")
         }
     }
     
@@ -63,16 +63,16 @@ class NewMessageController: UITableViewController {
 
 extension NewMessageController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return chatPartners.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! UserCell
-        cell.user = users[indexPath.row]
+        cell.user = chatPartners[indexPath.row]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.controller(self, wantsToStartChatWith: users[indexPath.row])
+        delegate?.controller(self, wantsToStartChatWith: chatPartners[indexPath.row])
     }
 }

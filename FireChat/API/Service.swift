@@ -10,26 +10,53 @@ import Firebase
 
 struct Service {
     
-    static func fetchUsers(completion: @escaping ([User]) -> Void) {
-        var users = [User]()
+    static func fetchChatPartners(completion: @escaping ([User]) -> Void) {
+        var chatPartners = [User]()
         
-        Firestore.firestore().collection("users").getDocuments { snapshot, error in
+        USERS_COLLECTION_REF.getDocuments { snapshot, error in
             snapshot?.documents.forEach({ document in
                 let documentDictionary = document.data()
-                let user = User(dictionary: documentDictionary)
-                users.append(user)
+                let chatPartner = User(dictionary: documentDictionary)
+                chatPartners.append(chatPartner)
             })
-            completion(users)
+            completion(chatPartners)
         }
-        
     }
     
-    static func fetchMessages(forUser user: User, completion: @escaping ([Message]) -> Void) {
+    static func fetchChatPartner(withUid uid: String, completion: @escaping (User) -> Void) {
+        USERS_COLLECTION_REF.document(uid).getDocument { snapshot, error in
+            guard let dictionary = snapshot?.data() else { return }
+            let chatPartner = User(dictionary: dictionary)
+            completion(chatPartner)
+        }
+    }
+    
+    static func fetchConversations(completion: @escaping ([Conversation]) -> Void ) {
+        var conversations = [Conversation]()
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let query = MESSAGES_COLLECTION_REF.document(uid).collection("recent-messages").order(by: "timestamp")
+        query.addSnapshotListener { snapshot, error in
+            snapshot?.documentChanges.forEach({change in
+                let dictionary = change.document.data()
+                let message = Message(dictionary: dictionary)
+                
+                self.fetchChatPartner(withUid: message.toId) { chatPartner in
+                    let conversation = Conversation(chatPartner: chatPartner, message: message)
+                    conversations.append(conversation)
+                    completion(conversations)
+                }
+            })
+            
+        }
+    }
+    
+    static func fetchMessages(forUser chatPartner: User, completion: @escaping ([Message]) -> Void) {
        var messages = [Message]()
         
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        let query = MESSAGES_COLLECTION_REF.document(currentUid).collection(user.uid).order(by: "timestamp")
+        let query = MESSAGES_COLLECTION_REF.document(currentUid).collection(chatPartner.uid).order(by: "timestamp")
         
         query.addSnapshotListener { (snapshot, error) in
             snapshot?.documentChanges.forEach({ change in
@@ -43,16 +70,20 @@ struct Service {
         
     }
     
-    static func uploadMessage(_ message: String, to user: User, completion: ((Error?) -> Void)?) {
+    static func uploadMessage(_ message: String, to chatPartner: User, completion: ((Error?) -> Void)?) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
         let data = ["text" : message,
                     "fromId" : currentUid,
-                    "toId" : user.uid,
+                    "toId" : chatPartner.uid,
                     "timestamp" : Timestamp(date: Date())] as [String : Any]
         
-        MESSAGES_COLLECTION_REF.document(currentUid).collection(user.uid).addDocument(data: data) { _ in
-            MESSAGES_COLLECTION_REF.document(user.uid).collection(currentUid).addDocument(data: data, completion: completion)
+        MESSAGES_COLLECTION_REF.document(currentUid).collection(chatPartner.uid).addDocument(data: data) { _ in
+            MESSAGES_COLLECTION_REF.document(chatPartner.uid).collection(currentUid).addDocument(data: data, completion: completion)
+            
+        MESSAGES_COLLECTION_REF.document(currentUid).collection("recent-messages").document(chatPartner.uid).setData(data)
+            
+        MESSAGES_COLLECTION_REF.document(chatPartner.uid).collection("recent-messages").document(currentUid).setData(data)
         }
     }
     

@@ -34,6 +34,8 @@
 		C4B856F424E6D2A8004ABA21 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F324E6D2A8004ABA21 /* Message.swift */; };
 		C4B856F624E6DDED004ABA21 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F524E6DDED004ABA21 /* MessageViewModel.swift */; };
 		C4B856F824E6F507004ABA21 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F724E6F507004ABA21 /* Constants.swift */; };
+		C4B856FA24EAE2DE004ABA21 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */; };
+		C4B856FC24EAEA00004ABA21 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		C4B856F324E6D2A8004ABA21 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C4B856F524E6DDED004ABA21 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		C4B856F724E6F507004ABA21 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
+		C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,7 @@
 			children = (
 				C4B1F09324D9DDE1000869DC /* Authentication */,
 				C4B856F524E6DDED004ABA21 /* MessageViewModel.swift */,
+				C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 				C4B1F09B24E1ADEF000869DC /* UserCell.swift */,
 				C4B856EF24E456DD004ABA21 /* CustomInputAccesoryView.swift */,
 				C4B856F124E5A411004ABA21 /* MessageCell.swift */,
+				C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -344,12 +350,14 @@
 				C4B1F09F24E42A68000869DC /* User.swift in Sources */,
 				C4B1F0A124E42B26000869DC /* Service.swift in Sources */,
 				C4B856F224E5A411004ABA21 /* MessageCell.swift in Sources */,
+				C4B856FC24EAEA00004ABA21 /* ConversationViewModel.swift in Sources */,
 				C4B1F08624D873E7000869DC /* RegistrationController.swift in Sources */,
 				C4B1F08424D873D5000869DC /* LoginController.swift in Sources */,
 				C4B1F08824D877F6000869DC /* Extensions.swift in Sources */,
 				C4B856F024E456DD004ABA21 /* CustomInputAccesoryView.swift in Sources */,
 				C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */,
 				C4B1F0A324E44182000869DC /* ChatController.swift in Sources */,
+				C4B856FA24EAE2DE004ABA21 /* ConversationCell.swift in Sources */,
 				C4B856F424E6D2A8004ABA21 /* Message.swift in Sources */,
 				C4B1F08E24D9BE76000869DC /* CustomTextField.swift in Sources */,
 				C4B1F09924E1A1FC000869DC /* NewMessageController.swift in Sources */,

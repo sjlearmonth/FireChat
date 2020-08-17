@@ -27,4 +27,9 @@ struct Message {
     }
 }
 
+struct Conversation {
+    let chatPartner: User
+    let message: Message
+}
+
 
