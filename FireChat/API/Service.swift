@@ -12,12 +12,15 @@ struct Service {
     
     static func fetchChatPartners(completion: @escaping ([User]) -> Void) {
         var chatPartners = [User]()
+        let currentUid = Auth.auth().currentUser?.uid
         
         USERS_COLLECTION_REF.getDocuments { snapshot, error in
             snapshot?.documents.forEach({ document in
                 let documentDictionary = document.data()
                 let chatPartner = User(dictionary: documentDictionary)
-                chatPartners.append(chatPartner)
+                if chatPartner.uid != currentUid {
+                    chatPartners.append(chatPartner)
+                }
             })
             completion(chatPartners)
         }

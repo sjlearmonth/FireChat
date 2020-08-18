@@ -47,7 +47,11 @@ class ConversationsController: UIViewController {
     // MARK: - Selectors
     
     @objc func showProfile() {
-        logout()
+        let controller = ProfileController(style: .insetGrouped)
+        controller.delegate = self
+        let navigationController = UINavigationController(rootViewController: controller)
+        navigationController.modalPresentationStyle = .fullScreen
+        present(navigationController, animated: true, completion: nil)
     }
     
     @objc func showNewMessage() {
@@ -157,5 +161,11 @@ extension ConversationsController: NewMessageControllerDelegate {
     func controller(_ controller: NewMessageController, wantsToStartChatWith chatPartner: User) {
         controller.dismiss(animated: true, completion: nil)
         presentChatController(forUser: chatPartner)
+    }
+}
+
+extension ConversationsController: ProfileControllerDelegate {
+    func handleLogout() {
+        logout()
     }
 }

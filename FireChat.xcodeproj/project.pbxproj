@@ -36,6 +36,11 @@
 		C4B856F824E6F507004ABA21 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F724E6F507004ABA21 /* Constants.swift */; };
 		C4B856FA24EAE2DE004ABA21 /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */; };
 		C4B856FC24EAEA00004ABA21 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */; };
+		C4B856FE24EC1EAB004ABA21 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856FD24EC1EAB004ABA21 /* ProfileController.swift */; };
+		C4B8570024EC20A1004ABA21 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B856FF24EC20A1004ABA21 /* ProfileHeader.swift */; };
+		C4B8570224EC354B004ABA21 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8570124EC354B004ABA21 /* ProfileViewModel.swift */; };
+		C4B8570424EC3774004ABA21 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8570324EC3774004ABA21 /* ProfileCell.swift */; };
+		C4B8570624EC408F004ABA21 /* ProfileFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B8570524EC408F004ABA21 /* ProfileFooterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +77,11 @@
 		C4B856F724E6F507004ABA21 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
+		C4B856FD24EC1EAB004ABA21 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		C4B856FF24EC20A1004ABA21 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		C4B8570124EC354B004ABA21 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		C4B8570324EC3774004ABA21 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		C4B8570524EC408F004ABA21 /* ProfileFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFooterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +177,7 @@
 				C4B1F08024D86204000869DC /* ConversationsController.swift */,
 				C4B1F09824E1A1FC000869DC /* NewMessageController.swift */,
 				C4B1F0A224E44182000869DC /* ChatController.swift */,
+				C4B856FD24EC1EAB004ABA21 /* ProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -177,6 +188,7 @@
 				C4B1F09324D9DDE1000869DC /* Authentication */,
 				C4B856F524E6DDED004ABA21 /* MessageViewModel.swift */,
 				C4B856FB24EAEA00004ABA21 /* ConversationViewModel.swift */,
+				C4B8570124EC354B004ABA21 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -190,6 +202,9 @@
 				C4B856EF24E456DD004ABA21 /* CustomInputAccesoryView.swift */,
 				C4B856F124E5A411004ABA21 /* MessageCell.swift */,
 				C4B856F924EAE2DE004ABA21 /* ConversationCell.swift */,
+				C4B856FF24EC20A1004ABA21 /* ProfileHeader.swift */,
+				C4B8570324EC3774004ABA21 /* ProfileCell.swift */,
+				C4B8570524EC408F004ABA21 /* ProfileFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -337,8 +352,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B856FE24EC1EAB004ABA21 /* ProfileController.swift in Sources */,
 				C4B1F06B24D86118000869DC /* ViewController.swift in Sources */,
 				C4B856F824E6F507004ABA21 /* Constants.swift in Sources */,
+				C4B8570224EC354B004ABA21 /* ProfileViewModel.swift in Sources */,
 				C4B1F09224D9DDD7000869DC /* RegistrationViewModel.swift in Sources */,
 				C4B1F08C24D9B8C4000869DC /* InputContainerView.swift in Sources */,
 				C4B1F09724E18317000869DC /* AuthService.swift in Sources */,
@@ -348,15 +365,18 @@
 				C4B1F09C24E1ADEF000869DC /* UserCell.swift in Sources */,
 				C4B1F06924D86118000869DC /* SceneDelegate.swift in Sources */,
 				C4B1F09F24E42A68000869DC /* User.swift in Sources */,
+				C4B8570424EC3774004ABA21 /* ProfileCell.swift in Sources */,
 				C4B1F0A124E42B26000869DC /* Service.swift in Sources */,
 				C4B856F224E5A411004ABA21 /* MessageCell.swift in Sources */,
 				C4B856FC24EAEA00004ABA21 /* ConversationViewModel.swift in Sources */,
 				C4B1F08624D873E7000869DC /* RegistrationController.swift in Sources */,
 				C4B1F08424D873D5000869DC /* LoginController.swift in Sources */,
 				C4B1F08824D877F6000869DC /* Extensions.swift in Sources */,
+				C4B8570024EC20A1004ABA21 /* ProfileHeader.swift in Sources */,
 				C4B856F024E456DD004ABA21 /* CustomInputAccesoryView.swift in Sources */,
 				C4B1F09024D9D432000869DC /* LoginViewModel.swift in Sources */,
 				C4B1F0A324E44182000869DC /* ChatController.swift in Sources */,
+				C4B8570624EC408F004ABA21 /* ProfileFooterView.swift in Sources */,
 				C4B856FA24EAE2DE004ABA21 /* ConversationCell.swift in Sources */,
 				C4B856F424E6D2A8004ABA21 /* Message.swift in Sources */,
 				C4B1F08E24D9BE76000869DC /* CustomTextField.swift in Sources */,
