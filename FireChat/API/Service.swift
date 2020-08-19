@@ -11,17 +11,15 @@ import Firebase
 struct Service {
     
     static func fetchChatPartners(completion: @escaping ([User]) -> Void) {
-        var chatPartners = [User]()
-        let currentUid = Auth.auth().currentUser?.uid
         
         USERS_COLLECTION_REF.getDocuments { snapshot, error in
-            snapshot?.documents.forEach({ document in
-                let documentDictionary = document.data()
-                let chatPartner = User(dictionary: documentDictionary)
-                if chatPartner.uid != currentUid {
-                    chatPartners.append(chatPartner)
-                }
-            })
+            
+            guard var chatPartners = snapshot?.documents.map( { User(dictionary: $0.data()) }) else { return }
+            
+            if let loggedInUserIndex = chatPartners.firstIndex(where: { $0.uid == Auth.auth().currentUser?.uid}) {
+                chatPartners.remove(at: loggedInUserIndex)
+            }
+            
             completion(chatPartners)
         }
     }
@@ -37,20 +35,20 @@ struct Service {
     static func fetchConversations(completion: @escaping ([Conversation]) -> Void ) {
         var conversations = [Conversation]()
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
+        print("DEBUG: uid = \(uid)")
         let query = MESSAGES_COLLECTION_REF.document(uid).collection("recent-messages").order(by: "timestamp")
         query.addSnapshotListener { snapshot, error in
-            snapshot?.documentChanges.forEach({change in
+            snapshot?.documentChanges.forEach( {change in
+                print("DEBUG: Got here 1")
                 let dictionary = change.document.data()
                 let message = Message(dictionary: dictionary)
                 
-                self.fetchChatPartner(withUid: message.toId) { chatPartner in
+                self.fetchChatPartner(withUid: message.chatPartnerId) { chatPartner in
                     let conversation = Conversation(chatPartner: chatPartner, message: message)
                     conversations.append(conversation)
-                    completion(conversations)
                 }
             })
-            
+            completion(conversations)
         }
     }
     
