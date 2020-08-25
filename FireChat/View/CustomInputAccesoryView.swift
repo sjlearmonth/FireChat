@@ -87,7 +87,6 @@ class CustomInputAccessoryView: UIView {
     }
 
     @objc func handleTextInputChange() {
-        print("DEBUG: Handle text input change.")
         placeholderLabel.isHidden = !self.messageInputTextView.text.isEmpty
     }
     

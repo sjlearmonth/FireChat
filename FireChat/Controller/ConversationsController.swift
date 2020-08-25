@@ -17,7 +17,7 @@ class ConversationsController: UIViewController {
     
     private let tableView = UITableView()
     private var conversations = [Conversation]()
-    private var conversationsDictionary = [String : Any]()
+    
     
     private let newMessageButton: UIButton = {
         let button = UIButton(type: .system)
@@ -67,17 +67,22 @@ class ConversationsController: UIViewController {
     
     func fetchConversations() {
         showLoader(true)
+        print("DEBUG: got here 1")
+        var conversationsDictionary = [String : Any]()
         Service.fetchConversations { conversations in
-            
+            print("DEBUG: conversations = \(conversations)")
             conversations.forEach {conversation in
+                print("DEBUG: got here 2")
                 let message = conversation.message
-                self.conversationsDictionary[message.chatPartnerId] = conversation
+                conversationsDictionary[message.chatPartnerId] = conversation
             }
             
             self.showLoader(false)
+            print("DEBUG: conversationsDictionary = \(conversationsDictionary)")
             
-            self.conversations = Array(self.conversationsDictionary.values) as! [Conversation]
+            self.conversations = Array(conversationsDictionary.values) as! [Conversation]
             self.tableView.reloadData()
+
         }
     }
     
@@ -151,7 +156,7 @@ extension ConversationsController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ConversationCell
         
         cell.conversation = conversations[indexPath.row]
-        print("DEBUG: conversations: \(conversations)")
+//        print("DEBUG: conversations: \(conversations)")
         return cell
     }
 }

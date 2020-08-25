@@ -33,22 +33,32 @@ struct Service {
     }
     
     static func fetchConversations(completion: @escaping ([Conversation]) -> Void ) {
-        var conversations = [Conversation]()
+        
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        print("DEBUG: uid = \(uid)")
+        
         let query = MESSAGES_COLLECTION_REF.document(uid).collection("recent-messages").order(by: "timestamp")
+        
         query.addSnapshotListener { snapshot, error in
-            snapshot?.documentChanges.forEach( {change in
-                print("DEBUG: Got here 1")
-                let dictionary = change.document.data()
-                let message = Message(dictionary: dictionary)
-                
-                self.fetchChatPartner(withUid: message.chatPartnerId) { chatPartner in
-                    let conversation = Conversation(chatPartner: chatPartner, message: message)
-                    conversations.append(conversation)
-                }
-            })
-            completion(conversations)
+            var conversations = [Conversation]()
+            print("DEBUG: got here 3 \(String(describing: snapshot?.documentChanges.count))")
+            
+            guard let count = snapshot?.documentChanges.count else { return }
+            
+            if count > 0 {
+                snapshot?.documentChanges.forEach( {change in
+                    print("DEBUG: got here 4")
+                    let dictionary = change.document.data()
+                    let message = Message(dictionary: dictionary)
+                    
+                    self.fetchChatPartner(withUid: message.chatPartnerId) { chatPartner in
+                        let conversation = Conversation(chatPartner: chatPartner, message: message)
+                        conversations.append(conversation)
+                        completion(conversations)
+                    }
+                })
+            } else {
+                completion(conversations)
+            }
         }
     }
     
@@ -60,15 +70,22 @@ struct Service {
         let query = MESSAGES_COLLECTION_REF.document(currentUid).collection(chatPartner.uid).order(by: "timestamp")
         
         query.addSnapshotListener { (snapshot, error) in
-            snapshot?.documentChanges.forEach({ change in
-                if change.type == .added {
-                    let dictionary = change.document.data()
-                    messages.append(Message(dictionary: dictionary))
-                    completion(messages)
-                }
-            })
+            
+            guard let count = snapshot?.documentChanges.count else { return }
+            
+            if count > 0 {
+                snapshot?.documentChanges.forEach({ change in
+                    if change.type == .added {
+                        let dictionary = change.document.data()
+                        messages.append(Message(dictionary: dictionary))
+                        completion(messages)
+                    }
+                })
+                
+            } else {
+                completion(messages)
+            }
         }
-        
     }
     
     static func uploadMessage(_ message: String, to chatPartner: User, completion: ((Error?) -> Void)?) {
